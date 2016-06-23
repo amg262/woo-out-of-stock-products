@@ -1,6 +1,6 @@
 <?php
 /*
-* Plugin Name: Woo Out Of Stock Products
+* Plugin Name: Woo Product Overlay
 * Plugin URI: http://andrewgunn.xyz/woo-out-of-stock-products
 * Description: Dynamically display a custom uploaded or default "Out of Stock" image overlay for products in your WooCommerce store that are out of stock.
 * Version: 1.8
