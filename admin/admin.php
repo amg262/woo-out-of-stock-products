@@ -5,7 +5,9 @@ defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 //include_once('admin/woo-settings-tab.php');
 //include_once('admin/class-outofstock-settings.php');
 include_once('woo-settings-tab.php');
-include_once('class-outofstock-settings.php');
+//include_once('woo-settings-tab-1.php');
+
+//include_once('class-outofstock-settings.php');
 
 
 add_action( 'init', 'register_admin_scripts' );

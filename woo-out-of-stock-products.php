@@ -22,7 +22,7 @@ include_once('inc/script-styles.php');
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-add_action( 'init', 'register_outofstock_scripts' );
+//add_action( 'init', 'register_outofstock_scripts' );
 
 function register_outofstock_scripts() {
 	//wp_register_script( 'outofstock_js', plugins_url('inc/outofstock.js', __FILE__), array('jquery'));
@@ -46,8 +46,7 @@ function outofstock_settings_link( $actions, $plugin_file )
 
 		if ($plugin == $plugin_file) {
 
-			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>',
-							  'reports' => '<a href="edit.php?post_type=product&page=outofstock-stats">' . __('Reports', 'General') . '</a>');
+			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>');
 
     			$actions = array_merge($settings, $actions);
 		}
