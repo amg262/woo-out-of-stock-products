@@ -7,16 +7,3 @@ body {
 
 /*.outofstock a img*/
 
-.outofstock .images a, 
-.products .outofstock a {
-    position:relative;
-    display:block;
-}
-.outofstock .images a:before, 
-.products .outofstock a:before {
-    content: " ";
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    display: inherit !important;
-}

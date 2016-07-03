@@ -1,7 +1,6 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 
-
 /**
  * Create the section beneath the products tab
  **/
@@ -30,6 +29,8 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 		$p = plugins_url('assets/', dirname(__FILE__));
 		$arr = array();
 		$sel = array();
+		$nums = array();
+		
 		$classes = array();
 		$native_classes = array(
 			'has-post-thumbnail','downloadable','virtual','shipping-taxable',
@@ -41,12 +42,16 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 		array_push($arr, 'sold-out-stamp.png');
 		array_push($arr, 'stamp-semi-diagonal.png');
 		array_push($arr, 'banner-diagnoal.png');
+
+		for ($i=0; $i<=10; $i++) {
+			array_push($nums, $i);
+		}
 		//var_dump($arr);
 
-		foreach ($arr as $var) {
+		/*foreach ($arr as $var) {
 			$text = $p . $var;
 			echo '<br>'.$text;
-		}
+		}*/
 
 		$rows = 0;
 		$rows = get_option('outofstock_2_rows');
@@ -179,12 +184,14 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 			'name'     => __( 'No. of Rows', 'woo-outofstock' ),
 			'desc_tip' => __( 'Set the opacity of the overlay image. Default is <b>.8</b>', 'woo-outofstock' ),
 			'id'       => 'outofstock_2_rows',
-			'type'     => 'text',
+			'type'     => 'select',
+			'class'    => 'wc-enhanced-select',
 			'default' => 0,
-			'desc'     => __( '&nbsp;<button class="button button-primary"><a id="submit" style="color:#FFF;">Add Row</a></button>', 'woo-outofstock' ),
+			'desc'     => __( '&nbsp;', 'woo-outofstock' ),
 			//'desc'     => __( '&nbps;<button class="button button-primary"><a id="submit" style="color:#FFF;">Add Row</a></button><hr style="float:left;width:90%;border: 1px solid #000;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
 			//'placeholder' => 'center top',
-			'css'    => 'width:75px; text-align:right;'
+			'css'    => 'max-width:70px;width:100%; text-align:center;',
+			'options' => __( $nums, 'woo-outofstock')
 		);
 
 		//$settings_outofstock[] = array(submit_button("Save"));
@@ -219,7 +226,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 				//)
 				'options' => __( $classes, 'woo-outofstock')
 			);
-			$settings_outofstock[] = array(
+			/*$settings_outofstock[] = array(
 				'name'     => __( 'Backgroound Size', 'woo-outofstock' ),
 				'desc_tip' => __( 'Set the opacity of the overlay image. Default is <b>.8</b>', 'woo-outofstock' ),
 				'id'       => 'outofstock_2_background_size_'.$i,
@@ -228,7 +235,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 				'placeholder' => '100% 100%',
 				'default' => '100% 100%',
 				'class'    => ''
-			);
+			);*/
 
 
 			$settings_outofstock[] = array(
@@ -284,13 +291,15 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 				'default' => plugins_url('assets/sign-pin.png', dirname(__FILE__)),
 				'type'     => 'text',
 				'desc'     => __( '&nbsp;Make sure your image is a <b>PNG!</b><hr style="float:left;width:90%;border: 1px dotted #CCC;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
-				'class'    => 'overlay-input'
+				'class'    => 'overlay-input',
+				'css' => 'max-width:700px;width:100%;'
 			);
 			//submit_button("Save Row");
 			//echo '<br><hr><br>';
 			
 		}
-		endif;
+		endif; ?>
+		<?php
 		$settings_outofstock[] = array( 'type' => 'sectionend', 'id' => 'outofstock_2' );
 		
 		return $settings_outofstock;

@@ -43,9 +43,9 @@ function outofstock_scripts() { ?>
 					array_push($arr_2,  array('id'=>$k,
 								   'option' => 'outofstock_2_background_repeat_'.$k,
 								   'value'=> get_option('outofstock_2_background_repeat_'.$k)));
-			array_push($arr_2,  array('id'=>$k,
+			/*array_push($arr_2,  array('id'=>$k,
 								   'option' => 'outofstock_2_background_size_'.$k,
-								   'value'=> get_option('outofstock_2_background_size_'.$k)));
+								   'value'=> get_option('outofstock_2_background_size_'.$k)));*/
 	
 			array_push($arr_2,  array('id'=>$k,
 								   'option' => 'outofstock_2_image_opacity_'.$k,
@@ -109,8 +109,8 @@ function outofstock_scripts() { ?>
 			//var_dump($arr_2);
 		$id = $value['id'];
 
-		$option = $value['option'];
-		$value = $value['value'];
+		$option = sanitize_text_field($value['option']);
+		$value = sanitize_text_field($value['value']);
 		//var_dump($id); var_dump($option); var_dump($value);
 
 	
@@ -124,9 +124,9 @@ function outofstock_scripts() { ?>
 		if ( $option ===  'outofstock_2_background_repeat_'.$id ) {
 			$repeat = $value;
 		}
-		if ( $option ===  'outofstock_2_background_size_'.$id ) {
+		/*if ( $option ===  'outofstock_2_background_size_'.$id ) {
 			$size = $value;
-		}
+		}*/
 		if ( $option ===  'outofstock_2_image_opacity_'.$id ) {
 			$opacity = $value;
 		}
@@ -149,22 +149,7 @@ function outofstock_scripts() { ?>
 		echo '';
 
 		if ($class !== null) { ?>
-			<?php $str = $class . ' .images a';
-				  $str2 = '.products '.$class.' a';
-			?>
-			<script type="text/javascript">
-
-			jQuery(document).ready(function($){
-
-
-				//console.log($('.outofstock .images a').val());
-				//console.log($('.products .outofstock a').val());
-
-				
-
-		  	});
-
-		</script>
+			
 
 		<?php echo $class; ?> .images a, 
 			.products <?php echo $class; ?> a {
@@ -185,7 +170,7 @@ function outofstock_scripts() { ?>
 			background-image: url(' <?php echo $url; ?> ');
 			background-color: <?php echo $color; ?>;
 			background-repeat: <?php echo $repeat; ?>;
-			background-position: <?php echo $position; ?>;
+			background-position: <?php echo 'inherit'; ?>;
 			display: inherit !important; 
 			opacity: <?php echo $opacity; ?>;
 			z-index: 1 !important;
@@ -209,6 +194,8 @@ function outofstock_scripts() { ?>
 			display: inherit !important;
 			}
 		<?php echo $class; ?> .images .thumbnails a:before {
+			width:75%;
+			height:auto;
 			background:none !important;
 			display: inherit !important;
 		}
