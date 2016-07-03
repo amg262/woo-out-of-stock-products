@@ -50,7 +50,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 
 		$rows = 0;
 		$rows = get_option('outofstock_2_rows');
-		$sec = get_option('sec');
+		$sec = get_option('outofstock_sec');
 		
 
 		//var_dump($rows);
@@ -192,7 +192,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 		$settings_outofstock[] = array(
 			'name'     => __( 'Woo Secs', 'woo-outofstock' ),
 			'desc_tip' => __( 'Set the opacity of the overlay image. Default is <b>.8</b>', 'woo-outofstock' ),
-			'id'       => 'sec',
+			'id'       => 'outofstock_sec',
 			'type'     => 'hidden',
 			'desc'     => __( '', 'woo-outofstock' ),
 			'placeholder' => '',
@@ -247,7 +247,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 				'id'       => 'outofstock_2_background_color_'.$i,
 				'type'     => 'text',
 				'desc'     => __( '', 'woo-outofstock' ),
-				'placeholder' => 'transparent',
+				'default' => 'transparent',
 				'class'    => ''
 			);
 
