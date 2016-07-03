@@ -9,7 +9,7 @@ add_filter( 'woocommerce_get_sections_products', 'outofstock_2_add_section' );
 
 function outofstock_2_add_section( $sections ) {
 	
-	$sections['outofstock'] = __( 'Out of Stock / Image Overay', 'woo-outofstock' );
+	$sections['outofstock'] = __( 'Custom Overlays', 'woo-outofstock' );
 	return $sections;
 	
 }
@@ -25,12 +25,12 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 	 **/
 
 	if (isset($_POST['reset_wos_options'])) {
-        $reset = new WosReset();
-        $reset->get_wos_options();
+        //$reset = new WosReset();
+        //$reset->get_wos_options();
     }
 	if ( $current_section == 'outofstock' ) {
-		submit_button();
-		submit_button( 'Delete', 'delete button-primary', 'reset_wos_options' );
+		//submit_button();
+		//submit_button( 'Delete', 'delete button-primary', 'reset_wos_options' );
 		$settings_outofstock = array();
 
 		$p = plugins_url('assets/', dirname(__FILE__));
