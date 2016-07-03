@@ -1,8 +1,8 @@
 <?php
 /*
-* Plugin Name: Woo Product Overlay
-* Plugin URI: http://andrewgunn.xyz/woo-out-of-stock-products
-* Description: Dynamically display a custom uploaded or default "Out of Stock" image overlay for products in your WooCommerce store that are out of stock.
+* Plugin Name: Woocommerce Custom Overlays
+* Plugin URI: http://andrewgunn.xyz/woocommerce-custom-overlays
+* Description: Dynamically display a custom uploaded or default image overlays for products in your WooCommerce store by category, status, product, inventory status, etc..
 * Version: 2.0
 * Author: Andrew Gunn, Ryan Van Ess
 * Author URI: http://andrewgunn.xyz
@@ -46,7 +46,8 @@ function outofstock_settings_link( $actions, $plugin_file )
 
 		if ($plugin == $plugin_file) {
 
-			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>');
+			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>',
+				'pro' => '<a href="http://andrewgunn.xyz/woocommerce-custom-overlays-pro" target="_blank">' . __('Pro', 'General') . '</a>');
 
     			$actions = array_merge($settings, $actions);
 		}
