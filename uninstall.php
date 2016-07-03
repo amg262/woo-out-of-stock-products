@@ -1,17 +1,15 @@
 <?php
 
-require_once('admin/class-woo-reset.php')
+require_once('admin/class-woo-reset.php');
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit();
 }
 
 
-$reset = new WosReset();
-$reset->get_wos_options();
-//get_wos_options();
+get_wos_options();
 
 
-/*function get_wos_options() {
+function get_wos_options() {
 
 	$rows = get_option('outofstock_2_rows');
 	$arr_2 = array();
@@ -67,4 +65,4 @@ $reset->get_wos_options();
 	delete_option('outofstock_2_license_key');
 	delete_option('outofstock_2_rows');
 	
-}*/
+}

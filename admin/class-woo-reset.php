@@ -1,6 +1,6 @@
 <?php
 
-class WosReset() {
+class WosReset {
 
 	public $arr_2, $rows;
 
@@ -10,7 +10,8 @@ class WosReset() {
 	}
 
 	public function get_wos_options() {
-
+		$arr_2 = array();
+		$rows = get_option('outofstock_2_rows');
 		for ($k=0; $k<$rows; $k++) {
 			array_push($arr_2,  array('id'=>$k,
 								   'option' => 'outofstock_2_background_color_'.$k,

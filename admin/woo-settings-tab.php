@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
-require_once('class-woo-reset.php')
+require_once('class-woo-reset.php');
 
 /**
  * Create the section beneath the products tab
