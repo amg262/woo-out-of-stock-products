@@ -1,5 +1,6 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
+require_once('class-woo-reset.php')
 
 /**
  * Create the section beneath the products tab
@@ -22,15 +23,21 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 	/**
 	 * Check the current section is what we want
 	 **/
-	if ( $current_section == 'outofstock' ) {
 
+	if (isset($_POST['reset_wos_options'])) {
+        $reset = new WosReset();
+        $reset->get_wos_options();
+    }
+	if ( $current_section == 'outofstock' ) {
+		submit_button();
+		submit_button( 'Delete', 'delete button-primary', 'reset_wos_options' );
 		$settings_outofstock = array();
 
 		$p = plugins_url('assets/', dirname(__FILE__));
 		$arr = array();
 		$sel = array();
 		$nums = array();
-		
+
 		$classes = array();
 		$native_classes = array(
 			'has-post-thumbnail','downloadable','virtual','shipping-taxable',
