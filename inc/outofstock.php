@@ -2,21 +2,15 @@
 /**
 * Script styles to run jQuery on pages
 */
-add_action( 'wp_enqueue_scripts', 'outofstock_setup_scripts' );
-add_action('wp_enqueue_scripts','outofstock_scripts',1);
-//add_action( 'wp_enqueue_scripts', 'oss_styles' );
-
-function outofstock_setup_scripts() {
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery-ui-core' );
-}
+//add_action( 'wp_enqueue_scripts', 'outofstock_setup_scripts' );
+add_action('init','outofstock_scripts');
 
 	/**
 	* Enqueue scripts
 	*/
 	
 
-function outofstock_scripts() { ?>
+function wos_sty() { ?>
 
 <?php $rows = get_option('outofstock_2_rows'); ?>
 
@@ -86,16 +80,6 @@ function outofstock_scripts() { ?>
 
 		
 		?>
-	<script type="text/javascript">
-
-		jQuery(document).ready(function($){
-
-			
-			
-
-	  	});
-
-	</script>
 	
 	<?php $count = count($arr_2); ?>
 	<style type="text/css">'
@@ -149,55 +133,27 @@ function outofstock_scripts() { ?>
 		echo '';
 
 		if ($class !== null) { ?>
-	
-			.products <?php echo $class; ?> .button:before {
-			background:none !important;
-			display: inherit !important;
-			}
-		<?php echo $class; ?> .images .thumbnails a:before {
-			width:75%;
-			height:auto;
-			background:none !important;
-			display: inherit !important;
-		}
-			<?php echo $class; ?> .images a:before {
-			background-image: url(' <?php echo $url; ?> ');
-			background-color: <?php echo $color; ?>;
-			background-repeat: <?php echo $repeat; ?>;
-			background-position: <?php echo $position; ?>;
-			display: inherit !important; 
-			opacity: <?php echo $opacity; ?>;
-			z-index: 1 !important;
-			float: none;
-		}
-
-		.products <?php echo $class; ?> a:before {
-			background-image: url(' <?php echo $url; ?> ');
-			background-color: <?php echo $color; ?>;
-			background-repeat: <?php echo $repeat; ?>;
-			background-position: <?php echo $position; ?>;
-			display: inherit !important; 
-			opacity: <?php echo $opacity; ?>;
-			z-index: 1 !important;
-			float: none;
-		}
-		
+			
 
 		<?php echo $class; ?> .images a, 
 			.products <?php echo $class; ?> a {
-			    position:relative !important;
-			    /*display:block  !important;*/
+			    position:relative;
+			    display:block;
 			}
 			<?php echo $class; ?>  .images a:before, 
 			.products <?php echo $class; ?>  a:before {
-			    content: " " !important;
-			    height: 100% !important;
-			    position: absolute !important;
-			    width: 100% !important;
-			    display: inherit;
+			    content: " ";
+			    height: 100%;
+			    position: absolute;
+			    width: 100%;
+			    display: inherit !important;
 			}
 
-			
+		}
+
+	
+
+
 <?php $class = null; } ?>
 		
 

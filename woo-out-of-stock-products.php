@@ -16,20 +16,25 @@ defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
 */
 include_once('admin/woo-settings-tab.php');
 //include_once('inc/shortcode.php');
+//include_once('inc/outofstock.php');
+
 include_once('inc/script-styles.php');
 
 
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-//add_action( 'init', 'register_outofstock_scripts' );
+add_action( 'init', 'register_outofstock_scripts' );
 
 function register_outofstock_scripts() {
 	wp_register_script( 'outofstock_js', plugins_url('inc/outofstock.js', __FILE__), array('jquery'));
 	wp_register_style( 'outofstock_css', plugins_url('inc/outofstock.css', __FILE__));
 	wp_enqueue_script( 'outofstock_js' );
 	wp_enqueue_style( 'outofstock_css' );
+	//add_action('wp_enqueue_scripts', 'scripts_2');
+	//require_once('inc/outofstock.php');
 }
+
 
 
 /**
