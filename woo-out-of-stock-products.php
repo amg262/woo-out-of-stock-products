@@ -24,15 +24,14 @@ include_once('inc/script-styles.php');
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-add_action( 'init', 'register_outofstock_scripts' );
+add_action( 'wp_enqueue_scripts', 'register_outofstock_scripts' );
 
 function register_outofstock_scripts() {
 	wp_register_script( 'outofstock_js', plugins_url('inc/outofstock.js', __FILE__), array('jquery'));
 	wp_register_style( 'outofstock_css', plugins_url('inc/outofstock.css', __FILE__));
 	wp_enqueue_script( 'outofstock_js' );
 	wp_enqueue_style( 'outofstock_css' );
-	//add_action('wp_enqueue_scripts', 'scripts_2');
-	//require_once('inc/outofstock.php');
+
 }
 
 
@@ -51,8 +50,9 @@ function outofstock_settings_link( $actions, $plugin_file )
 
 		if ($plugin == $plugin_file) {
 
-			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>',
-				'pro' => '<a href="http://andrewgunn.xyz/woocommerce-custom-overlays-pro" target="_blank">' . __('Pro', 'General') . '</a>');
+			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>'//,
+				//'pro' => '<a href="http://andrewgunn.xyz/woocommerce-custom-overlays-pro" target="_blank">' . __('Pro', 'General') . '</a>'
+				);
 
     			$actions = array_merge($settings, $actions);
 		}
