@@ -28,3 +28,7 @@
 	margin:20px 0 20px 5px;
 
 }
+
+.images .woocommerce-main-image.zoom {
+	display: block;
+}
