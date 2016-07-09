@@ -10,3 +10,21 @@
 	display: none !important;
 	background: none !important;
 }
+
+.wos-block {
+	display: block !important;
+}
+
+.submit.wos-submit {
+	display: inline-block;
+    float: left;
+    /* margin: auto; */
+    margin: 15px 10px 15px 0;
+}
+#wos-save {
+	margin:20px 10px 20px 0;
+}
+#wos-delete {
+	margin:20px 0 20px 5px;
+
+}

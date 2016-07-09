@@ -11,7 +11,7 @@ get_wos_options();
 
 function get_wos_options() {
 
-	$rows = get_option('outofstock_2_rows');
+	$rows = get_option('outofstock_2_max_rows');
 	$arr_2 = array();
 
 	for ($k=0; $k<$rows; $k++) {
@@ -64,5 +64,9 @@ function get_wos_options() {
 	delete_option('outofstock_2_classes');
 	delete_option('outofstock_2_license_key');
 	delete_option('outofstock_2_rows');
+	delete_option('outofstock_2_max_rows');
+	delete_option('outofstock_sec');
+	
+
 	
 }

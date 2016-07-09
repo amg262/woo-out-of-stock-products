@@ -1,37 +1,74 @@
 <?php
 defined( 'ABSPATH' ) or die( 'Plugin file cannot be accessed directly.' );
-require_once('class-woo-reset.php');
+class WC_Settings_Tab_wos {
+    /**
+     * Bootstraps the class and hooks required actions & filters.
+     *
+     */
+    public static function init() {
+        add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
+        add_action( 'woocommerce_settings_tabs_settings_tab_wos', __CLASS__ . '::settings_tab' );
+        add_action( 'woocommerce_update_options_settings_tab_wos', __CLASS__ . '::update_settings' );
+        //add_action( 'woocommerce_settings_tabs_settings_tab_wos', __CLASS__ . '::submit_button' );
 
-/**
- * Create the section beneath the products tab
- **/
-add_filter( 'woocommerce_get_sections_products', 'outofstock_2_add_section' );
-
-function outofstock_2_add_section( $sections ) {
-	
-	$sections['outofstock'] = __( 'Custom Overlays', 'woo-outofstock' );
-	return $sections;
-	
-}
-
-/**
- * Add settings to the specific section we created before
- */
-add_filter( 'woocommerce_get_settings_products', 'outofstock_2_all_settings', 10, 2 );
-
-function outofstock_2_all_settings( $settings, $current_section ) {
-	/**
-	 * Check the current section is what we want
-	 **/
-
-	if (isset($_POST['reset_wos_options'])) {
-        //$reset = new WosReset();
-        //$reset->get_wos_options();
     }
-	if ( $current_section == 'outofstock' ) {
-		//submit_button();
+
+    public static function submit_button() {
+    	//submit_button('hi');
+    	//submit_button( $text, $type, $name, $wrap, $other_attributes );
+    	$other_attributes = array( 'id' => 'wos-delete' );
+    	//echo '<p class="submit wos-submit">';
+    	//submit_button( 'Delete sdsd', 'delete button-secondary', 'wos-delete', false, $other_attributes );
+    	//echo '</p>';
+
+    }
+    
+    
+    /**
+     * Add a new settings tab to the WooCommerce settings tabs array.
+     *
+     * @param array $settings_tabs Array of WooCommerce setting tabs & their labels, excluding the Subscription tab.
+     * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
+     */
+    public static function add_settings_tab( $settings_tabs ) {
+        $settings_tabs['settings_tab_wos'] = __( 'Custom Overlays', 'woo-outofstock' );
+        return $settings_tabs;
+    }
+    /**
+     * Uses the WooCommerce admin fields API to output settings via the @see woocommerce_admin_fields() function.
+     *
+     * @uses woocommerce_admin_fields()
+     * @uses self::get_settings()
+     */
+    public static function settings_tab() {
+    	
+        woocommerce_admin_fields( self::get_settings() );
+    }
+    /**
+     * Uses the WooCommerce options API to save settings via the @see woocommerce_update_options() function.
+     *
+     * @uses woocommerce_update_options()
+     * @uses self::get_settings()
+     */
+    public static function update_settings() {
+        woocommerce_update_options( self::get_settings() );
+    }
+    /**
+     * Get all the settings for this plugin for @see woocommerce_admin_fields() function.
+     *
+     * @return array Array of settings for @see woocommerce_admin_fields() function.
+     */
+    public static function get_settings() {
+        //submit_button();
 		//submit_button( 'Delete', 'delete button-primary', 'reset_wos_options' );
+
+		if (isset($_REQUEST['wos-delete'])) {
+			//var_dump($post);
+			$reset = WosReset();
+			$reset->get_wos_options();
+		}
 		$settings_outofstock = array();
+		echo '<div class="wos-top">';
 
 		$p = plugins_url('assets/', dirname(__FILE__));
 		$arr = array();
@@ -60,11 +97,17 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 			echo '<br>'.$text;
 		}*/
 
-		$rows = 0;
+		$rows = 0; $max = 0;
 		$rows = get_option('outofstock_2_rows');
+		$max = get_option('outofstock_2_max_rows');
 		$sec = get_option('outofstock_sec');
 		
-
+		if ($max == 0) {
+			update_option('outofstock_2_max_rows', $rows);
+		} elseif ($rows > $max ) {
+			update_option('outofstock_2_max_rows', $rows);
+		//} else {
+		}
 		//var_dump($rows);
 
 		/*
@@ -164,7 +207,7 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 		//$arr = array('instock','outofstock');
 
 		// Add Title to the Settings
-		$settings_outofstock[] = array( 'name' => __( 'Woo Out of Stock Settings', 'woo-outofstock' ), 'type' => 'title', 'desc' => __( 'The following options are used to configure Woo Out of Stock Products', 'woo-outofstock' ), 'id' => '' );
+		$settings_outofstock[] = array( 'name' => __( 'Woocommerce Custom Overlays', 'woo-outofstock' ), 'type' => 'title', 'desc' => __( 'The following options are used to configure Woocommerce Custom Overlays', 'woo-outofstock' ), 'id' => '' );
 		// Add first checkbox option
 		/*$settings_outofstock[] = array(
 			'name'     => __( 'Disable Overlay', 'woo-outofstock' ),
@@ -199,6 +242,20 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 			//'placeholder' => 'center top',
 			'css'    => 'max-width:70px;width:100%; text-align:center;',
 			'options' => __( $nums, 'woo-outofstock')
+		);
+
+		$settings_outofstock[] = array(
+			'name'     => __( 'Max Rows', 'woo-outofstock' ),
+			//'desc_tip' => __( 'Set the opacity of the overlay image. Default is <b>.8</b>', 'woo-outofstock' ),
+			'id'       => 'outofstock_2_max_rows',
+			'type'     => 'hidden',
+			//'class'    => 'wc-enhanced-select',
+			'default' => 0,
+			'desc'     => __( '&nbsp;', 'woo-outofstock' )
+			//'desc'     => __( '&nbps;<button class="button button-primary"><a id="submit" style="color:#FFF;">Add Row</a></button><hr style="float:left;width:90%;border: 1px solid #000;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
+			//'placeholder' => 'center top',
+			//'css'    => 'max-width:70px;width:100%; text-align:center;',
+			//'options' => __( $nums, 'woo-outofstock')
 		);
 
 		//$settings_outofstock[] = array(submit_button("Save"));
@@ -297,26 +354,37 @@ function outofstock_2_all_settings( $settings, $current_section ) {
 				'id'       => 'outofstock_2_image_url_'.$i,
 				'default' => plugins_url('assets/sign-pin.png', dirname(__FILE__)),
 				'type'     => 'text',
-				'desc'     => __( '&nbsp;Make sure your image is a <b>PNG!</b><hr style="float:left;width:90%;border: 1px dotted #CCC;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
+				'desc'     => __( '&nbsp;Make sure your image is a <b>PNG!</b><br><hr style="float:left;width:90%;border: 1px dotted #CCC;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
 				'class'    => 'overlay-input',
 				'css' => 'max-width:700px;width:100%;'
 			);
+
+			/*$settings_outofstock[] = array(
+				//'name'     => __( 'Overlay Image URL', 'woo-outofstock' ),
+				//'desc_tip' => __( 'This will be the URL of the image you are using for the Out of Stock overlay. Make sure it is a <b>PNG</b>', 'woo-outofstock' ),
+				//'id'       => ''.$i,
+				//'default' => plugins_url('assets/sign-pin.png', dirname(__FILE__)),
+				'type'     => 'text',
+				'desc'     => __( '&nbsp;<button class="button button-primary wos-block"><a id="submit" style="color:#FFF;">Save</a></button><hr style="float:left;width:90%;border: 1px dotted #CCC;margin-top: 35px;margin-bottom:15px;">', 'woo-outofstock' ),
+				'class'    => 'overlay-input',
+				'css' => 'display:none;'
+			);*/
 			//submit_button("Save Row");
 			//echo '<br><hr><br>';
-			
 		}
-		endif; ?>
-		<?php
+		endif;
 		$settings_outofstock[] = array( 'type' => 'sectionend', 'id' => 'outofstock_2' );
 		
-		return $settings_outofstock;
-	
-	/**
-	 * If not, return the standard settings
-	 **/
-	} else {
-		return $settings;
-	}
-}
+		$other_attributes = array( 'id' => 'wos-save' );
 
-?>
+		//submit_button("Save Changes", 'primary', 'wos-save', false, $other_attributes);
+		$other_attributes = array( 'id' => 'wos-delete' );
+    	//echo '<p class="submit wos-submit">';
+    	//submit_button( 'Reset All', 'delete button-secondary', 'wos-delete', false, $other_attributes );
+		return $settings_outofstock;
+        //return apply_filters( 'wc_settings_tab_wos_settings', $settings_outofstock );
+        echo '</div">';
+       
+    }
+}
+WC_Settings_Tab_wos::init();

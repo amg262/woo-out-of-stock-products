@@ -24,7 +24,7 @@ include_once('inc/script-styles.php');
 /**
 * Register and enqueue jQuery files to run on frontend, enqueue on admin_init
 */
-add_action( 'wp_enqueue_scripts', 'register_outofstock_scripts' );
+add_action( 'init', 'register_outofstock_scripts' );
 
 function register_outofstock_scripts() {
 	wp_register_script( 'outofstock_js', plugins_url('inc/outofstock.js', __FILE__), array('jquery'));

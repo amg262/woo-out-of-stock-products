@@ -6,12 +6,12 @@ class WosReset {
 
 	public function __construct() {
 		$arr_2 = array();
-		$rows = get_option('outofstock_2_rows');
+		$rows = get_option('outofstock_2_max_rows');
 	}
 
 	public function get_wos_options() {
 		$arr_2 = array();
-		$rows = get_option('outofstock_2_rows');
+		$rows = get_option('outofstock_2_max_rows');
 		for ($k=0; $k<$rows; $k++) {
 			array_push($arr_2,  array('id'=>$k,
 								   'option' => 'outofstock_2_background_color_'.$k,
@@ -62,6 +62,8 @@ class WosReset {
 		delete_option('outofstock_2_classes');
 		delete_option('outofstock_2_license_key');
 		delete_option('outofstock_2_rows');
+		delete_option('outofstock_2_max_rows');
+		delete_option('outofstock_sec');
 		
 	}
 
