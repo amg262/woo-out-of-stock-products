@@ -29,6 +29,6 @@
 
 }
 
-.images .woocommerce-main-image.zoom {
+.images .woocommerce-main-image.zoom, .woocommerce-LoopProduct-link {
 	display: block;
 }

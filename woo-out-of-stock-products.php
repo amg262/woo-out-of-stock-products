@@ -50,7 +50,7 @@ function outofstock_settings_link( $actions, $plugin_file )
 
 		if ($plugin == $plugin_file) {
 
-			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=products&section=outofstock">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>'//,
+			$settings = array('settings' => '<a href="admin.php?page=wc-settings&tab=settings_tab_wos">' . __('Settings', 'General') . '</a>', 'support' => '<a href="http://andrewgunn.xyz/support" target="_blank">' . __('Support', 'General') . '</a>'//,
 				//'pro' => '<a href="http://andrewgunn.xyz/woocommerce-custom-overlays-pro" target="_blank">' . __('Pro', 'General') . '</a>'
 				);
 
