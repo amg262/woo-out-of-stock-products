@@ -34,9 +34,8 @@ function register_outofstock_scripts() {
 
 }
 
+/*()
 
-
-/**
 * Adding Settings link to plugin page
 */
 add_filter( 'plugin_action_links', 'outofstock_settings_link', 10, 5 );

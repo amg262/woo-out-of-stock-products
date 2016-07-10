@@ -9,17 +9,12 @@ class WC_Settings_Tab_wos {
         add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
         add_action( 'woocommerce_settings_tabs_settings_tab_wos', __CLASS__ . '::settings_tab' );
         add_action( 'woocommerce_update_options_settings_tab_wos', __CLASS__ . '::update_settings' );
-        //add_action( 'woocommerce_settings_tabs_settings_tab_wos', __CLASS__ . '::submit_button' );
-
+        add_action( 'woocommerce_settings_tabs_settings_tab_wos', __CLASS__ . '::submit_button' );
     }
 
     public static function submit_button() {
-    	//submit_button('hi');
-    	//submit_button( $text, $type, $name, $wrap, $other_attributes );
-    	$other_attributes = array( 'id' => 'wos-delete' );
-    	//echo '<p class="submit wos-submit">';
-    	//submit_button( 'Delete sdsd', 'delete button-secondary', 'wos-delete', false, $other_attributes );
-    	//echo '</p>';
+    	echo '<hr>';
+		submit_button( 'Reset Settings', 'delete button-secondary', 'reset_wos_options' );
 
     }
     
@@ -59,14 +54,66 @@ class WC_Settings_Tab_wos {
      * @return array Array of settings for @see woocommerce_admin_fields() function.
      */
     public static function get_settings() {
-        //submit_button();
-		//submit_button( 'Delete', 'delete button-primary', 'reset_wos_options' );
+        
 
-		if (isset($_REQUEST['wos-delete'])) {
-			//var_dump($post);
-			$reset = WosReset();
-			$reset->get_wos_options();
+		if (isset($_REQUEST['reset_wos_options'])) {
+			$arr_2 = array();
+		$rows = get_option('outofstock_2_max_rows');
+		for ($k=0; $k<$rows; $k++) {
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_background_color_'.$k,
+								   'value'=> get_option('outofstock_2_background_color_'.$k)));
+
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_background_position_'.$k,
+								   'value'=> get_option('outofstock_2_background_position_'.$k)));
+					array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_background_repeat_'.$k,
+								   'value'=> get_option('outofstock_2_background_repeat_'.$k)));
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_background_size_'.$k,
+								   'value'=> get_option('outofstock_2_background_size_'.$k)));
+
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_image_opacity_'.$k,
+								   'value'=> get_option('outofstock_2_image_opacity_'.$k)));
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_image_url_'.$k,
+								   'value'=> get_option('outofstock_2_image_url_'.$k)));
+
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_selector_'.$k,
+								   'value'=> get_option('outofstock_2_selector_'.$k)));
+
+			$aaa = get_option('outofstock_2_classes');
+			$var = get_option('outofstock_2_selector_'.$k);
+			$cla = $aaa[intval($var)];
+
+			array_push($arr_2,  array('id'=>$k,
+								   'option' => 'outofstock_2_class_'.$k,
+								   'value'=> $cla));
+
+		
+
 		}
+
+		foreach ($arr_2 as $value) {//for ($p = 0; $p <= count($arr_2); $p++ ) {
+
+			$id = $value['id'];
+
+			$option = $value['option'];
+			$value = $value['value'];
+
+			delete_option($option);
+		}
+		delete_option('outofstock_2_classes');
+		delete_option('outofstock_2_license_key');
+		delete_option('outofstock_2_rows');
+		delete_option('outofstock_2_max_rows');
+		delete_option('outofstock_sec');
+		
+	}
+		
 		$settings_outofstock = array();
 		echo '<div class="wos-top">';
 
@@ -375,10 +422,8 @@ class WC_Settings_Tab_wos {
 		endif;
 		$settings_outofstock[] = array( 'type' => 'sectionend', 'id' => 'outofstock_2' );
 		
-		$other_attributes = array( 'id' => 'wos-save' );
-
-		//submit_button("Save Changes", 'primary', 'wos-save', false, $other_attributes);
-		$other_attributes = array( 'id' => 'wos-delete' );
+	
+		
     	//echo '<p class="submit wos-submit">';
     	//submit_button( 'Reset All', 'delete button-secondary', 'wos-delete', false, $other_attributes );
 		return $settings_outofstock;
