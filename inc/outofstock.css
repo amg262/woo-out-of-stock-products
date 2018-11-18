@@ -1,34 +1,22 @@
 
 /** STYLES FOR MENU PAGES IN TOOLS.PHP**/
 
-.add_to_cart_button:before,
-.ajax_add_to_cart:before,
-.added_to_cart:before, 
-.add_to_cart_button:before,
-.ajax_add_to_cart:before,
-.added:before {
-	display: none !important;
-	background: none !important;
+body {
+	/*color:#e59c00;#E96656*/
 }
 
-.wos-block {
-	display: block !important;
-}
+/*.outofstock a img*/
 
-.submit.wos-submit {
-	display: inline-block;
-    float: left;
-    /* margin: auto; */
-    margin: 15px 10px 15px 0;
+.outofstock .images a, 
+.products .outofstock a {
+    position:relative;
+    display:block;
 }
-#wos-save {
-	margin:20px 10px 20px 0;
-}
-#wos-delete {
-	margin:20px 0 20px 5px;
-
-}
-
-.images .woocommerce-main-image.zoom, .woocommerce-LoopProduct-link {
-	display: block;
+.outofstock .images a:before, 
+.products .outofstock a:before {
+    content: " ";
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: inherit !important;
 }
